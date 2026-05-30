@@ -1,12 +1,186 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Titiksha's Food Roulette</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:linear-gradient(135deg,#f8f5f0,#fef9f3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.card{
+    width:100%;
+    max-width:420px;
+    background:white;
+    border-radius:28px;
+    padding:32px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.08),
+        0 4px 12px rgba(0,0,0,0.04);
+    text-align:center;
+}
+
+h1{
+    font-size:2rem;
+    margin-bottom:12px;
+}
+
+.subtitle{
+    color:#666;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+.machine{
+    background:#fafafa;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+    border:1px solid #eee;
+}
+
+.foodDisplay{
+    font-size:2rem;
+    font-weight:700;
+    min-height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.spinBtn{
+    border:none;
+    background:black;
+    color:white;
+    padding:14px 30px;
+    border-radius:999px;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.spinBtn:hover{
+    transform:translateY(-2px);
+}
+
+.result{
+    margin-top:20px;
+    font-size:1.1rem;
+}
+
+.footer{
+    margin-top:30px;
+    color:#999;
+    font-size:.9rem;
+}
+
+.foods{
+    display:none;
+}
+</style>
 </head>
-<body style="font-family:Arial;text-align:center;padding:50px;">
-<h1>🍽️ Titiksha's Food Roulette</h1>
-<p>Because deciding what to eat shouldn't be harder than JEE Advanced.</p>
-<p>Coming soon...</p>
+
+<body>
+
+<div class="card">
+
+    <h1>🍽️ Titiksha's Food Roulette</h1>
+
+    <div class="subtitle">
+        Because deciding what to eat shouldn't be harder than JEE Advanced.
+    </div>
+
+    <div class="machine">
+        <div class="foodDisplay" id="foodDisplay">
+            🍜 Maggi
+        </div>
+    </div>
+
+    <button class="spinBtn" onclick="spinFood()">
+        🎯 Pick For Me
+    </button>
+
+    <div class="result" id="result">
+        One spin. One decision. Zero arguments.
+    </div>
+
+    <div class="footer">
+        Built for indecisive food emergencies.
+    </div>
+
+</div>
+
+<script>
+
+const foods = [
+"🥣 Bhel",
+"🥥 Idli",
+"🥬 Bhindi",
+"🍜 Chowmein",
+"🍝 Bambino",
+"🍜 Maggi",
+"🍝 Pasta",
+"🧀 Paneer",
+"🤷 Kuch Bhi"
+];
+
+let spinning = false;
+
+function spinFood(){
+
+    if(spinning) return;
+
+    spinning = true;
+
+    const display = document.getElementById("foodDisplay");
+    const result = document.getElementById("result");
+
+    result.innerHTML = "Searching for the perfect choice...";
+
+    let count = 0;
+
+    const interval = setInterval(()=>{
+
+        display.innerHTML =
+            foods[Math.floor(Math.random()*foods.length)];
+
+        count++;
+
+        if(count > 25){
+
+            clearInterval(interval);
+
+            const finalFood =
+                foods[Math.floor(Math.random()*foods.length)];
+
+            display.innerHTML = finalFood;
+
+            result.innerHTML =
+                "<b>Today's Pick</b>";
+
+            spinning = false;
+        }
+
+    },100);
+
+}
+
+</script>
+
 </body>
 </html>
